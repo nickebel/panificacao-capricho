@@ -214,8 +214,16 @@ const App = () => {
                   <span className="product-count">0{i + 1}</span>
                 </div>
                 <div className="product-copy">
-                  <h3>{item.title}</h3>
-                  <p>{item.description}</p>
+                  {i === 0 && <h3>{item.title}</h3>}
+                  <p>{i === 0 ? item.description : lang === 'pt' ? [
+                    'Uma combinação de sabores que celebra as raízes nordestinas.',
+                    'Comece o dia com um café e algo fresquinho à mesa.',
+                    'Pães fresquinhos para levar para casa e compartilhar.',
+                  ][i - 1] : [
+                    'A flavorful combination celebrating Northeastern Brazilian roots.',
+                    'Start the day with coffee and something freshly made.',
+                    'Fresh bread to take home and share.',
+                  ][i - 1]}</p>
                   <button onClick={() => goTo('unidades')} className="text-link">{lang === 'pt' ? 'Encontre na Capricho' : 'Find it at Capricho'} <ArrowRight size={15} /></button>
                 </div>
               </article>
