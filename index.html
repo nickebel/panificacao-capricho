@@ -1,18 +1,119 @@
 <!doctype html>
 <html lang="pt-BR">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#f5f1e6" />
-    <meta name="description" content="Panificação Capricho: pão quentinho, café da manhã, tapiocas e sabores do Nordeste em São Miguel dos Campos, Alagoas." />
-    <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&family=Lora:wght@400;500;600;700&display=swap" rel="stylesheet" />
-    <title>Panificação Capricho — O sabor de casa</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f5f1e6">
+  <meta name="description" content="Panificação Capricho: pães quentinhos, café da manhã, tapiocas e sabores do Nordeste em São Miguel dos Campos, Alagoas.">
+  <link rel="icon" type="image/svg+xml" href="./favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&family=Lora:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <title>Panificação Capricho — O sabor de casa</title>
+  <style>
+    :root{--card:#fffcf5;--ring:#a67c52;--input:#dbd0ba;--muted:#ece5d8;--accent:#d4c8aa;--border:#dbd0ba;--primary:#a67c52;--secondary:#e2d8c3;--background:#f5f1e6;--foreground:#4a3f35;--muted-foreground:#7d6b56;--serif:"Lora",Georgia,serif;--sans:Arial,sans-serif}
+    *{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:20px}body{margin:0;background:var(--background);color:var(--foreground);font-family:var(--sans);-webkit-font-smoothing:antialiased}a{color:inherit;text-decoration:none}button{font:inherit;cursor:pointer}img{display:block;max-width:100%}::selection{background:var(--accent);color:var(--foreground)}
+    .announcement{min-height:32px;padding:8px 14px;background:var(--foreground);color:var(--card);display:flex;gap:10px;justify-content:center;align-items:center;font-size:10px;letter-spacing:.09em;text-transform:uppercase}.announcement b{font-size:15px;color:var(--accent);font-weight:400}
+    .header{width:min(1260px,calc(100% - 64px));height:86px;margin:auto;display:flex;align-items:center;justify-content:space-between;gap:22px;border-bottom:1px solid var(--border);position:relative;z-index:5}
+    .brand{display:flex;align-items:center;gap:10px;flex-shrink:0}.brand-mark{width:43px;height:43px;border-radius:50%;background:var(--primary);color:var(--card);display:grid;place-items:center;font-size:25px}.brand-text strong{display:block;font:700 18px/1.25 var(--serif);letter-spacing:.08em}.brand-text small{display:block;text-align:center;font-size:8px;letter-spacing:.28em;margin-top:4px}
+    .nav{display:flex;align-items:center;gap:clamp(16px,2.4vw,34px)}.nav a,.nav .ig{font-size:11px;color:#65584a;white-space:nowrap}.nav a:hover,.ig:hover{color:var(--primary)}.ig{display:flex;align-items:center;gap:7px}
+    .actions{display:flex;align-items:center;gap:9px}.lang,.menu{border:1px solid var(--border);border-radius:99px;background:transparent;padding:10px 12px;color:var(--foreground);font-size:11px;display:flex;align-items:center;gap:7px}.lang:hover,.menu:hover{background:var(--muted)}.menu{display:none;padding:10px}
+    .hero{width:min(1260px,calc(100% - 64px));margin:auto;min-height:585px;display:grid;grid-template-columns:.92fr 1.08fr;align-items:stretch;gap:28px}.hero-copy{padding:83px 15px 55px 0;display:flex;flex-direction:column;align-items:flex-start}.eyebrow{display:flex;align-items:center;gap:10px;font-size:9px;letter-spacing:.18em;color:#8d6e4c;text-transform:uppercase}.eyebrow:before{content:"";width:26px;height:1px;background:var(--primary)}
+    h1,h2,h3,p{margin-top:0}.hero h1{font:500 clamp(42px,5.2vw,69px)/1.13 var(--serif);letter-spacing:-.045em;margin:27px 0 19px}.hero h1 em{color:var(--primary);font-weight:400}.hero-copy>p{max-width:440px;color:var(--muted-foreground);font-size:13px;line-height:1.95}.buttons{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-top:20px}.btn{display:inline-flex;align-items:center;justify-content:center;gap:13px;min-height:47px;padding:0 17px;border:1px solid transparent;border-radius:3px;font-size:11px;transition:transform .2s,background .2s}.btn:hover{transform:translateY(-2px)}.btn-dark{background:var(--foreground);color:var(--card)}.btn-dark:hover{background:#6a5744}.btn-plain{padding:0 7px;background:transparent;color:#685748}.btn-outline{border-color:var(--primary);background:transparent;color:var(--foreground)}.btn-outline:hover{background:var(--muted)}
+    .hero-note{margin-top:auto;padding-top:30px;display:flex;align-items:center;gap:10px;font-size:10px;color:var(--muted-foreground)}.coffee-icon{width:34px;height:34px;border:1px solid var(--border);border-radius:50%;display:grid;place-items:center;color:var(--primary);font-size:18px}.note-rule{width:35px;height:1px;background:var(--border)}
+    .hero-image{margin:31px 0 28px;position:relative;min-height:520px;background:#d7c2a4 url("https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=1600&q=85") center/cover no-repeat}.hero-image:after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(45,38,33,.45),transparent 35%)}.stamp{position:absolute;z-index:1;right:25px;top:25px;width:88px;height:88px;background:var(--background);border:1px solid #c0a080;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:4px;transform:rotate(8deg);color:#8d6e4c}.stamp span{font-size:7px;letter-spacing:.15em}.stamp b{font:21px var(--serif)}.image-caption{position:absolute;z-index:1;bottom:20px;left:23px;right:23px;display:flex;justify-content:space-between;color:white;font-size:9px;letter-spacing:.1em;text-transform:uppercase}
+    .ribbon{display:flex;align-items:center;justify-content:center;gap:16px;padding:20px 15px;border-block:1px solid var(--border)}.ribbon b{color:var(--primary);font-size:19px;font-weight:400}.ribbon span{font-size:9px;letter-spacing:.17em;color:#685748}.ribbon i{width:55px;height:1px;background:#c9b99e}
+    .section{width:min(1160px,calc(100% - 64px));margin:auto;padding:100px 0 110px}.section-heading{display:flex;justify-content:space-between;align-items:flex-end;gap:28px;margin-bottom:34px}.section-heading h2,.story-copy h2,.locations-intro h2{font:500 clamp(32px,4vw,49px)/1.17 var(--serif);letter-spacing:-.035em;margin:15px 0 12px}.section-heading p,.locations-intro>p{max-width:540px;color:var(--muted-foreground);font-size:12px;line-height:1.8;margin-bottom:0}.count{font-size:10px;letter-spacing:.12em;color:var(--primary);white-space:nowrap;padding-bottom:4px}
+    .products{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:22px}.product-photo{position:relative;aspect-ratio:4/4.8;background:var(--muted);overflow:hidden}.product-photo img{width:100%;height:100%;object-fit:cover;transition:transform .45s}.product:hover img{transform:scale(1.04)}.number{position:absolute;left:11px;top:11px;width:28px;height:28px;display:grid;place-items:center;background:var(--card);color:var(--primary);font-size:10px}.product-copy{padding-top:16px}.product-copy h3{font:600 18px/1.3 var(--serif);margin-bottom:8px}.product-copy p{color:var(--muted-foreground);font-size:11px;line-height:1.75;min-height:58px;margin-bottom:8px}.product-copy a{color:#8d6e4c;font-size:10px;display:inline-flex;align-items:center;gap:8px}
+    .story{display:grid;grid-template-columns:1.05fr .95fr;min-height:480px;background:var(--muted)}.story-photo{position:relative;min-height:480px}.story-photo img{height:100%;width:100%;position:absolute;inset:0;object-fit:cover}.story-badge{position:absolute;left:25px;bottom:24px;background:var(--card);color:#8d6e4c;padding:11px 13px;font-size:9px;letter-spacing:.15em}.story-copy{padding:70px clamp(32px,7vw,100px);display:flex;flex-direction:column;justify-content:center;align-items:flex-start}.story-copy h2{font-size:clamp(35px,4.2vw,54px)}.story-copy>p{font-size:12px;color:var(--muted-foreground);line-height:2;max-width:430px}.signature{margin-top:34px;display:flex;align-items:center;gap:10px;color:#8d6e4c;font:italic 13px var(--serif)}
+    .locations{background:#e8decc;padding:86px max(32px,calc((100vw - 1160px)/2));display:grid;grid-template-columns:.8fr 1.2fr;gap:55px;align-items:center}.locations-intro h2{font-size:clamp(35px,4vw,49px)}.social-pill{display:inline-flex;align-items:center;gap:9px;border:1px solid #c9b99e;border-radius:99px;padding:12px 14px;margin-top:24px;font-size:10px}.social-pill:hover{background:var(--background)}.location-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}.location{background:var(--card);border:1px solid rgba(166,124,82,.2);padding:24px 21px}.location-top{display:flex;align-items:center;justify-content:space-between;padding-bottom:17px;border-bottom:1px solid #e7ddcd;color:var(--primary);font-size:9px;letter-spacing:.16em}.location h3{font:600 23px var(--serif);margin:19px 0 8px}.location p{font-size:10px;line-height:1.8;color:var(--muted-foreground);margin-bottom:18px}.divider{height:1px;background:#e7ddcd;margin-bottom:16px}.contact-label{display:block;color:var(--primary);font-size:8px;letter-spacing:.13em;margin-bottom:8px}.phone{display:block;font:15px var(--serif);margin-bottom:16px}.location .btn{width:100%;gap:8px;font-size:10px;padding:0 10px}.map{display:flex;align-items:center;justify-content:center;gap:7px;margin-top:15px;color:#8d6e4c;font-size:10px}
+    footer{width:min(1260px,calc(100% - 64px));margin:auto}.footer-top{display:flex;align-items:center;justify-content:space-between;gap:25px;padding:34px 0}.footer-top p{margin:0;color:var(--muted-foreground);font-size:10px}.footer-ig{display:flex;align-items:center;gap:8px;color:#8d6e4c;font-size:11px}.footer-bottom{border-top:1px solid var(--border);padding:17px 0 23px;display:flex;align-items:center;justify-content:space-between;gap:15px;color:#8b7a67;font-size:9px}.footer-bottom button{border:0;background:transparent;color:#8d6e4c;font-size:9px}
+    @media(max-width:950px){.header,.hero,footer{width:calc(100% - 42px)}.nav{gap:13px}.nav a,.nav .ig{font-size:10px}.hero{min-height:520px}.hero-copy{padding-top:65px}.hero-image{min-height:455px}.section{width:calc(100% - 42px)}.products{grid-template-columns:repeat(2,minmax(0,1fr));gap:30px 20px}.product-photo{aspect-ratio:1/1.1}.product-copy p{min-height:0}.locations{grid-template-columns:1fr;gap:30px;padding:70px 26px}.locations-intro{text-align:center;max-width:640px;margin:auto}.locations-intro .eyebrow{justify-content:center}.locations-intro>p{margin:auto}.story-copy{padding:55px 38px}}
+    @media(max-width:680px){.announcement{font-size:8px;gap:7px}.header{height:72px;width:calc(100% - 34px)}.brand-mark{width:38px;height:38px}.brand-text strong{font-size:16px}.brand-text small{font-size:7px}.actions{margin-left:auto}.menu{display:flex}.nav{display:none;position:absolute;top:64px;left:0;right:0;background:var(--card);border:1px solid var(--border);padding:10px;box-shadow:0 15px 28px rgba(74,63,53,.13);flex-direction:column;align-items:stretch;gap:0}.nav.open{display:flex}.nav a,.nav .ig{padding:13px 7px;border-bottom:1px solid #eee5d7;font-size:12px}.nav .ig{border-bottom:0}.hero{width:100%;display:flex;flex-direction:column;gap:0;min-height:auto}.hero-copy{padding:50px 25px 27px}.hero h1{font-size:clamp(42px,11vw,57px);margin:22px 0 16px}.hero-copy>p{font-size:12px;line-height:1.9}.buttons{gap:6px}.btn{font-size:10px;gap:9px;padding:0 12px}.hero-note{padding-top:20px;margin-top:8px}.hero-image{margin:0 16px 22px;min-height:360px}.stamp{top:15px;right:15px;width:76px;height:76px}.image-caption{left:15px;right:15px;font-size:8px}.ribbon{gap:9px;padding:17px 9px}.ribbon span{font-size:7px;letter-spacing:.1em}.ribbon i{width:20px}.section{width:calc(100% - 34px);padding:66px 0 72px}.section-heading{margin-bottom:25px;align-items:flex-start}.section-heading h2,.story-copy h2{font-size:33px}.section-heading p{font-size:11px}.count{display:none}.products{gap:27px 12px}.product-photo{aspect-ratio:1/1.15}.number{left:8px;top:8px;width:25px;height:25px}.product-copy{padding-top:11px}.product-copy h3{font-size:15px}.product-copy p{font-size:10px;line-height:1.65}.product-copy a{font-size:9px;line-height:1.4}.story{grid-template-columns:1fr}.story-photo{min-height:310px}.story-photo img{min-height:310px}.story-copy{padding:42px 25px 45px}.signature{margin-top:24px}.locations{padding:60px 17px 66px;gap:25px}.locations-intro h2{font-size:34px}.locations-intro>p{font-size:11px}.location-grid{grid-template-columns:1fr}.location{padding:22px}.location h3{font-size:22px}.footer-top{padding:27px 0;flex-wrap:wrap;gap:12px}.footer-top p{order:3;width:100%;line-height:1.8}.footer-ig{margin-left:auto}.footer-bottom{flex-wrap:wrap;font-size:8px}.footer-bottom span:nth-child(2){display:none}}
+    @media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;transition-duration:.01ms!important}}
+  </style>
+</head>
+<body>
+  <div class="announcement"><span data-pt="O cheirinho de casa começa aqui" data-en="The comforting smell of home starts here">O cheirinho de casa começa aqui</span><b>✳</b><span>São Miguel dos Campos, AL</span></div>
+  <header class="header">
+    <a class="brand" href="#inicio" aria-label="Panificação Capricho">
+      <span class="brand-mark" aria-hidden="true">♨</span><span class="brand-text"><strong>CAPRICHO</strong><small>PANIFICAÇÃO</small></span>
+    </a>
+    <nav class="nav" id="main-nav" aria-label="Navegação principal">
+      <a href="#inicio" data-pt="Início" data-en="Home">Início</a>
+      <a href="#sabores" data-pt="Nossos sabores" data-en="Our flavors">Nossos sabores</a>
+      <a href="#essencia" data-pt="Nossa essência" data-en="Our roots">Nossa essência</a>
+      <a href="#unidades" data-pt="Unidades" data-en="Locations">Unidades</a>
+      <a class="ig" href="https://www.instagram.com/panificacaocapricho/" target="_blank" rel="noopener noreferrer">◎ Instagram ↗</a>
+    </nav>
+    <div class="actions">
+      <button class="lang" id="language-toggle" type="button" aria-label="Change language">◎ <span id="lang-label">EN</span></button>
+      <button class="menu" id="menu-toggle" type="button" aria-label="Abrir menu" aria-expanded="false">☰</button>
+    </div>
+  </header>
+  <main>
+    <section class="hero" id="inicio">
+      <div class="hero-copy">
+        <div class="eyebrow" data-pt="Fresquinho, feito com carinho" data-en="Fresh every morning, made with care">Fresquinho, feito com carinho</div>
+        <h1 id="hero-title">O sabor de casa,<br><em>feito com Capricho.</em></h1>
+        <p data-pt="Pães quentinhos, café da manhã e sabores do nosso Nordeste — preparados para transformar uma pausa em um bom momento." data-en="Freshly baked bread, breakfast, and beloved flavors from Northeast Brazil — made to turn a simple pause into a good moment.">Pães quentinhos, café da manhã e sabores do nosso Nordeste — preparados para transformar uma pausa em um bom momento.</p>
+        <div class="buttons">
+          <a class="btn btn-dark" href="#unidades"><span data-pt="Encontre sua unidade" data-en="Find your location">Encontre sua unidade</span> <span aria-hidden="true">↗</span></a>
+          <a class="btn btn-plain" href="#sabores"><span data-pt="Conheça nossos sabores" data-en="Explore our flavors">Conheça nossos sabores</span> <span aria-hidden="true">↘</span></a>
+        </div>
+        <div class="hero-note"><span class="coffee-icon" aria-hidden="true">☕</span><span data-pt="Fresquinho e feito com carinho" data-en="Freshly made with care">Fresquinho e feito com carinho</span><span class="note-rule"></span></div>
+      </div>
+      <div class="hero-image" role="img" aria-label="Pães artesanais fresquinhos">
+        <div class="stamp"><span>FEITO COM</span><b>♡</b><span>CAPRICHO</span></div>
+        <div class="image-caption"><span>01 / 04</span><span data-pt="Afeto em cada receita" data-en="Care in every recipe">Afeto em cada receita</span></div>
+      </div>
+    </section>
+    <div class="ribbon"><b>✳</b><span data-pt="DA NOSSA COZINHA PARA A SUA MESA" data-en="FROM OUR KITCHEN TO YOUR TABLE">DA NOSSA COZINHA PARA A SUA MESA</span><i></i><span data-pt="Desde cedo, todos os dias" data-en="Early every day">Desde cedo, todos os dias</span></div>
+    <section class="section" id="sabores">
+      <div class="section-heading">
+        <div><div class="eyebrow" data-pt="Feito para saborear" data-en="Made to be savored">Feito para saborear</div><h2 data-pt="Um pouco do que sai da nossa cozinha" data-en="A taste of what comes out of our kitchen">Um pouco do que sai da nossa cozinha</h2><p data-pt="Clássicos preparados para deixar o seu dia mais gostoso." data-en="Comforting favorites made to brighten your day.">Clássicos preparados para deixar o seu dia mais gostoso.</p></div>
+        <div class="count">01 <span style="color:#c7b89e">—</span> 04</div>
+      </div>
+      <div class="products">
+        <article class="product"><div class="product-photo"><img src="https://images.unsplash.com/photo-1555507036-ab1f4038808a?auto=format&fit=crop&w=900&q=82" alt="Tapioca e quitutes preparados na hora" loading="lazy"><span class="number">01</span></div><div class="product-copy"><h3 data-pt="Tapioca quentinha" data-en="Warm tapioca">Tapioca quentinha</h3><p data-pt="Feita na hora, com recheio generoso e aquele queijo derretendo." data-en="Made to order, generously filled with delicious melted cheese.">Feita na hora, com recheio generoso e aquele queijo derretendo.</p><a href="#unidades"><span data-pt="Encontre na Capricho" data-en="Find it at Capricho">Encontre na Capricho</span> ↗</a></div></article>
+        <article class="product"><div class="product-photo"><img src="https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=900&q=82" alt="Prato preparado com ingredientes frescos" loading="lazy"><span class="number">02</span></div><div class="product-copy"><h3 data-pt="Cuscuz Sertão Tropical" data-en="Sertão Tropical couscous">Cuscuz Sertão Tropical</h3><p data-pt="Sabor nordestino que abraça: cuscuz, carne de sol e queijo." data-en="A Northeastern Brazilian favorite with couscous, sun-dried beef, and cheese.">Sabor nordestino que abraça: cuscuz, carne de sol e queijo.</p><a href="#unidades"><span data-pt="Encontre na Capricho" data-en="Find it at Capricho">Encontre na Capricho</span> ↗</a></div></article>
+        <article class="product"><div class="product-photo"><img src="https://images.unsplash.com/photo-1525351484163-7529414344d8?auto=format&fit=crop&w=900&q=82" alt="Mesa de café da manhã" loading="lazy"><span class="number">03</span></div><div class="product-copy"><h3 data-pt="Café da manhã" data-en="Breakfast">Café da manhã</h3><p data-pt="Um convite para desacelerar e começar o dia com carinho." data-en="An invitation to slow down and start the day with a little care.">Um convite para desacelerar e começar o dia com carinho.</p><a href="#unidades"><span data-pt="Venha tomar um café" data-en="Come enjoy a coffee">Venha tomar um café</span> ↗</a></div></article>
+        <article class="product"><div class="product-photo"><img src="https://images.unsplash.com/photo-1589367920969-ab8e050bbb04?auto=format&fit=crop&w=900&q=82" alt="Pão fresquinho e dourado" loading="lazy"><span class="number">04</span></div><div class="product-copy"><h3 data-pt="Pão quentinho" data-en="Freshly baked bread">Pão quentinho</h3><p data-pt="Dourado por fora, macio por dentro e saindo do forno." data-en="Golden on the outside, soft inside, straight from the oven.">Dourado por fora, macio por dentro e saindo do forno.</p><a href="#unidades"><span data-pt="Encontre na Capricho" data-en="Find it at Capricho">Encontre na Capricho</span> ↗</a></div></article>
+      </div>
+    </section>
+    <section class="story" id="essencia">
+      <div class="story-photo"><img src="https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=1100&q=85" alt="Comida preparada com ingredientes frescos" loading="lazy"><span class="story-badge" data-pt="RAÍZES NORDESTINAS" data-en="NORTHEASTERN ROOTS">RAÍZES NORDESTINAS</span></div>
+      <div class="story-copy"><div class="eyebrow" data-pt="Nossa essência" data-en="Our roots">Nossa essência</div><h2 data-pt="Sabor que representa a casa." data-en="A taste that feels like home.">Sabor que representa a casa.</h2><p data-pt="Do cuscuz que lembra a nossa terra à tapioca feita na hora: aqui, o simples ganha um toque especial." data-en="From couscous that reminds us of our roots to tapioca made to order, we give everyday favorites a special touch.">Do cuscuz que lembra a nossa terra à tapioca feita na hora: aqui, o simples ganha um toque especial.</p><a class="btn btn-outline" href="#unidades"><span data-pt="Peça pelo WhatsApp" data-en="Order on WhatsApp">Peça pelo WhatsApp</span> ↗</a><div class="signature"><span style="font-size:22px">❧</span><span data-pt="Sabor, afeto e tradição." data-en="Flavor, care, and tradition.">Sabor, afeto e tradição.</span></div></div>
+    </section>
+    <section class="locations" id="unidades">
+      <div class="locations-intro"><div class="eyebrow" style="justify-content:inherit" data-pt="Pertinho de você" data-en="Close to you">Pertinho de você</div><h2 data-pt="Duas unidades. O mesmo Capricho." data-en="Two locations. The same Capricho.">Duas unidades. O mesmo Capricho.</h2><p data-pt="Escolha a unidade mais prática para você e fale diretamente com a nossa equipe." data-en="Choose the most convenient location and get in touch directly with our team.">Escolha a unidade mais prática para você e fale diretamente com a nossa equipe.</p><a class="social-pill" href="https://www.instagram.com/panificacaocapricho/" target="_blank" rel="noopener noreferrer">◎ <span data-pt="Veja nosso dia a dia" data-en="See our daily moments">Veja nosso dia a dia</span> ↗</a></div>
+      <div class="location-grid">
+        <article class="location"><div class="location-top"><span data-pt="UNIDADE 01" data-en="LOCATION 01">UNIDADE 01</span><span>⌖</span></div><h3 data-pt="Centro" data-en="Downtown">Centro</h3><p data-pt="São Miguel dos Campos — Alagoas" data-en="São Miguel dos Campos — Alagoas, Brazil">São Miguel dos Campos — Alagoas</p><div class="divider"></div><span class="contact-label" data-pt="FALE COM A UNIDADE" data-en="CONTACT THIS LOCATION">FALE COM A UNIDADE</span><strong class="phone">+55 82 99329-2147</strong><a class="btn btn-dark" href="https://wa.me/5582993292147" target="_blank" rel="noopener noreferrer">◉ <span data-pt="Chamar no WhatsApp" data-en="Chat on WhatsApp">Chamar no WhatsApp</span> ↗</a><a class="map" href="https://www.google.com/maps/search/?api=1&query=Panifica%C3%A7%C3%A3o+Capricho+Centro+S%C3%A3o+Miguel+dos+Campos" target="_blank" rel="noopener noreferrer"><span data-pt="Ver rota" data-en="Get directions">Ver rota</span> ↗</a></article>
+        <article class="location"><div class="location-top"><span data-pt="UNIDADE 02" data-en="LOCATION 02">UNIDADE 02</span><span>⌖</span></div><h3 data-pt="Paraíso" data-en="Paraíso">Paraíso</h3><p data-pt="São Miguel dos Campos — Alagoas" data-en="São Miguel dos Campos — Alagoas, Brazil">São Miguel dos Campos — Alagoas</p><div class="divider"></div><span class="contact-label" data-pt="FALE COM A UNIDADE" data-en="CONTACT THIS LOCATION">FALE COM A UNIDADE</span><strong class="phone">+55 82 98819-8072</strong><a class="btn btn-dark" href="https://wa.me/5582988198072" target="_blank" rel="noopener noreferrer">◉ <span data-pt="Chamar no WhatsApp" data-en="Chat on WhatsApp">Chamar no WhatsApp</span> ↗</a><a class="map" href="https://www.google.com/maps/search/?api=1&query=Panifica%C3%A7%C3%A3o+Capricho+Para%C3%ADso+S%C3%A3o+Miguel+dos+Campos" target="_blank" rel="noopener noreferrer"><span data-pt="Ver rota" data-en="Get directions">Ver rota</span> ↗</a></article>
+      </div>
+    </section>
+  </main>
+  <footer><div class="footer-top"><a class="brand" href="#inicio"><span class="brand-mark" aria-hidden="true">♨</span><span class="brand-text"><strong>CAPRICHO</strong><small>PANIFICAÇÃO</small></span></a><p data-pt="Feito com carinho em São Miguel dos Campos, Alagoas." data-en="Made with care in São Miguel dos Campos, Alagoas, Brazil.">Feito com carinho em São Miguel dos Campos, Alagoas.</p><a class="footer-ig" href="https://www.instagram.com/panificacaocapricho/" target="_blank" rel="noopener noreferrer">◎ Instagram ↗</a></div><div class="footer-bottom"><span>© <span id="year"></span> Panificação Capricho</span><span data-pt="O sabor de casa, todos os dias." data-en="The taste of home, every day.">O sabor de casa, todos os dias.</span><button type="button" onclick="window.scrollTo({top:0,behavior:'smooth'})" data-pt="Voltar ao topo ↑" data-en="Back to top ↑">Voltar ao topo ↑</button></div></footer>
+  <script>
+    (function(){
+      var lang='pt';
+      var toggle=document.getElementById('language-toggle');
+      var langLabel=document.getElementById('lang-label');
+      var nav=document.getElementById('main-nav');
+      var menu=document.getElementById('menu-toggle');
+      document.getElementById('year').textContent=new Date().getFullYear();
+      function setLanguage(next){
+        lang=next;
+        document.documentElement.lang=lang==='pt'?'pt-BR':'en';
+        document.querySelectorAll('[data-pt][data-en]').forEach(function(el){el.textContent=el.getAttribute('data-'+lang)});
+        document.getElementById('hero-title').innerHTML=lang==='pt'?'O sabor de casa,<br><em>feito com Capricho.</em>':'The taste of home,<br><em>made with care.</em>';
+        document.querySelector('.hero-image').setAttribute('aria-label',lang==='pt'?'Pães artesanais fresquinhos':'Freshly baked bread');
+        langLabel.textContent=lang==='pt'?'EN':'PT';
+      }
+      toggle.addEventListener('click',function(){setLanguage(lang==='pt'?'en':'pt')});
+      menu.addEventListener('click',function(){var open=nav.classList.toggle('open');menu.setAttribute('aria-expanded',String(open));menu.textContent=open?'✕':'☰';menu.setAttribute('aria-label',open?'Fechar menu':'Abrir menu')});
+      nav.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){nav.classList.remove('open');menu.setAttribute('aria-expanded','false');menu.textContent='☰'})});
+    })();
+  </script>
+</body>
 </html>
