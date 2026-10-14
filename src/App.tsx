@@ -110,11 +110,9 @@ const copy = {
 };
 
 const images = {
-  hero: 'https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=1600&q=85',
-  tapioca: 'https://images.unsplash.com/photo-1555507036-ab1f4038808a?auto=format&fit=crop&w=900&q=82',
-  cuscuz: 'https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=900&q=82',
-  breakfast: 'https://images.unsplash.com/photo-1525351484163-7529414344d8?auto=format&fit=crop&w=900&q=82',
-  bread: 'https://images.unsplash.com/photo-1589367920969-ab8e050bbb04?auto=format&fit=crop&w=900&q=82',
+  hero: './assets/tapioca-prato.webp',
+  tapioca: './assets/tapioca-prato.webp',
+  foodSprite: './assets/food-sprite.webp',
 };
 
 const App = () => {
@@ -124,7 +122,9 @@ const App = () => {
 
   const stories: StoryCard[] = t.stories.map((story, index) => ({
     ...story,
-    image: [images.breakfast, images.cuscuz, images.bread, images.tapioca][index],
+    image: images.foodSprite,
+    imagePosition: ['66.6667% center', '33.3333% center', '100% center', '0% center'][index],
+    imageSize: '400% auto',
   }));
 
   const goTo = (id: string) => {
@@ -200,8 +200,17 @@ const App = () => {
           <div className="product-grid">
             {t.items.map((item, i) => (
               <article className={'product-card product-card-' + (i + 1)} key={item.title}>
-                <div className="product-photo">
-                  <img src={[images.tapioca, images.cuscuz, images.breakfast, images.bread][i]} alt={item.title} loading="lazy" />
+                <div
+                  className="product-photo"
+                  role="img"
+                  aria-label={item.title}
+                  style={{
+                    backgroundImage: 'url(' + (i === 0 ? images.tapioca : images.foodSprite) + ')',
+                    backgroundSize: i === 0 ? 'cover' : '400% auto',
+                    backgroundPosition: i === 0 ? 'center' : ['33.3333% center', '66.6667% center', '100% center'][i - 1],
+                    backgroundRepeat: 'no-repeat',
+                  }}
+                >
                   <span className="product-count">0{i + 1}</span>
                 </div>
                 <div className="product-copy">
@@ -215,8 +224,11 @@ const App = () => {
         </section>
 
         <section className="story-section" id="essencia">
-          <div className="story-photo">
-            <img src={images.cuscuz} alt={lang === 'pt' ? 'Ingredientes frescos e comida preparada com cuidado' : 'Fresh ingredients and food prepared with care'} loading="lazy" />
+          <div
+            className="story-photo story-photo-sprite"
+            role="img"
+            aria-label={lang === 'pt' ? 'Cuscuz Sertão Tropical preparado na Capricho' : 'Sertão Tropical couscous prepared at Capricho'}
+          >
             <span className="photo-label">{t.storyTag}</span>
           </div>
           <div className="story-copy">
@@ -240,6 +252,7 @@ const App = () => {
           <div className="story-columns">
             <TestimonialsColumn testimonials={stories.slice(0, 2)} duration={22} />
             <TestimonialsColumn testimonials={stories.slice(2, 4)} duration={27} className="story-column-second" />
+            <TestimonialsColumn testimonials={stories.slice(0, 2)} duration={24} className="story-column-third" />
           </div>
         </section>
 

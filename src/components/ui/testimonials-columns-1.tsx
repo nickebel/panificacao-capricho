@@ -8,6 +8,8 @@ export type StoryCard = {
   image: string;
   name: string;
   role: string;
+  imagePosition?: string;
+  imageSize?: string;
 };
 
 export const TestimonialsColumn = (props: {
@@ -31,7 +33,20 @@ export const TestimonialsColumn = (props: {
           <React.Fragment key={copy}>
             {props.testimonials.map((story, index) => (
               <article className="story-card" key={story.name + copy + index}>
-                <img src={story.image} alt="" loading="lazy" />
+                {story.imagePosition ? (
+                  <div
+                    className="story-card-image"
+                    role="img"
+                    aria-label={story.name}
+                    style={{
+                      backgroundImage: 'url(' + story.image + ')',
+                      backgroundSize: story.imageSize || 'cover',
+                      backgroundPosition: story.imagePosition,
+                    }}
+                  />
+                ) : (
+                  <img src={story.image} alt="" loading="lazy" />
+                )}
                 <div className="story-card-copy">
                   <p>{story.text}</p>
                   <strong>{story.name}</strong>
