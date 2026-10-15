@@ -28,3 +28,17 @@ npm run build
 ```
 
 Os contatos são centralizados em `src/lib/site-config.ts`. A página pública tem os números e perfil oficial do Instagram atualizados diretamente no HTML.
+
+
+## Fotos e identidade visual
+
+O site usa a marca em vetor em `assets/logo-capricho.svg`, baseada na logo oficial enviada pelo proprietário. As fotografias de produtos são imagens ilustrativas do Pexels, entregues em tamanhos maiores pelo CDN para melhorar a nitidez.
+
+Fontes das fotografias:
+- Tapioca: https://www.pexels.com/photo/hot-coffee-in-yellow-ceramic-mug-beside-a-plate-of-white-bread-with-filling-5860731/
+- Cubos de tapioca (banner): https://www.pexels.com/photo/food-on-brown-surface-3324431/
+- Cuscuz brasileiro: https://www.pexels.com/photo/traditional-cuscuz-paulista-dish-on-ornate-plate-34314361/
+- Café da manhã: https://www.pexels.com/photo/bread-butter-and-buns-9304020/
+- Pães: https://www.pexels.com/photo/freshly-baked-buns-at-the-bakery-display-17301617/
+
+As imagens são servidas pelo CDN do Pexels. A disponibilização no site depende de conexão com a internet e do serviço de imagens do provedor.
