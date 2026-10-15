@@ -42,3 +42,9 @@ Fontes das fotografias:
 - Pães: https://www.pexels.com/photo/freshly-baked-buns-at-the-bakery-display-17301617/
 
 As imagens são servidas pelo CDN do Pexels. A disponibilização no site depende de conexão com a internet e do serviço de imagens do provedor.
+
+
+## Cuscuz nordestino e logo oficial
+
+- **Logo:** `assets/logo-capricho.jpg` é o arquivo original fornecido pelo proprietário, incorporado sem redesenho, recorte, alteração de cor ou remoção do fundo.
+- **Foto do cuscuz nordestino:** [Cuscuz nordestino.jpg](https://commons.wikimedia.org/wiki/File:Cuscuz_nordestino.jpg), de André Koehne, foto original com 2.992 × 2.992 px. Licença Creative Commons Atribuição-CompartilhaIgual 4.0 (CC BY-SA 4.0). O arquivo é servido diretamente do Wikimedia Commons: https://upload.wikimedia.org/wikipedia/commons/3/3f/Cuscuz_nordestino.jpg
