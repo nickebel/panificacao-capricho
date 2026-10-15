@@ -8,7 +8,6 @@ import {
   MapPin,
   Menu,
   MessageCircle,
-  Wheat,
   X,
 } from 'lucide-react';
 import { TestimonialsColumn, type StoryCard } from '@/components/ui/testimonials-columns-1';
@@ -110,9 +109,11 @@ const copy = {
 };
 
 const images = {
-  hero: './assets/tapioca-prato.webp',
-  tapioca: './assets/tapioca-prato.webp',
-  foodSprite: './assets/food-sprite.webp',
+  hero: './assets/capricho-tapioca-hero.webp',
+  tapioca: './assets/capricho-tapioca-hero.webp',
+  cuscuz: './assets/capricho-cuscuz.webp',
+  cafe: './assets/capricho-cafe.webp',
+  paes: './assets/capricho-paes.webp',
 };
 
 const App = () => {
@@ -122,9 +123,9 @@ const App = () => {
 
   const stories: StoryCard[] = t.stories.map((story, index) => ({
     ...story,
-    image: images.foodSprite,
-    imagePosition: ['66.6667% center', '33.3333% center', '100% center', '0% center'][index],
-    imageSize: '400% auto',
+    image: [images.tapioca, images.cuscuz, images.cafe, images.paes][index],
+    imagePosition: 'center',
+    imageSize: 'cover',
   }));
 
   const goTo = (id: string) => {
@@ -138,7 +139,7 @@ const App = () => {
 
       <header className="site-header">
         <a className="brand" href="#inicio" onClick={() => setMenuOpen(false)} aria-label="Panificação Capricho home">
-          <span className="brand-mark"><Wheat size={25} strokeWidth={1.6} /></span>
+          <img className="brand-logo" src="./assets/capricho-logo.svg" alt="" width={54} height={54} />
           <span className="brand-copy"><strong>CAPRICHO</strong><small>PANIFICAÇÃO</small></span>
         </a>
 
@@ -205,9 +206,9 @@ const App = () => {
                   role="img"
                   aria-label={item.title}
                   style={{
-                    backgroundImage: 'url(' + (i === 0 ? images.tapioca : images.foodSprite) + ')',
-                    backgroundSize: i === 0 ? 'cover' : '400% auto',
-                    backgroundPosition: i === 0 ? 'center' : ['33.3333% center', '66.6667% center', '100% center'][i - 1],
+                    backgroundImage: 'url(' + [images.tapioca, images.cuscuz, images.cafe, images.paes][i] + ')',
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center',
                     backgroundRepeat: 'no-repeat',
                   }}
                 >
@@ -244,7 +245,7 @@ const App = () => {
             <h2>{t.storyTitle}</h2>
             <p>{t.storyBody}</p>
             <button className="button button-outline" onClick={() => goTo('unidades')}>{t.storyLink}<ArrowRight size={17} /></button>
-            <div className="story-signature"><Wheat size={25} /><span>{lang === 'pt' ? 'Sabor, afeto e tradição.' : 'Flavor, care, and tradition.'}</span></div>
+            <div className="story-signature"><img className="brand-logo brand-logo-small" src="./assets/capricho-logo.svg" alt="" width={28} height={28} /><span>{lang === 'pt' ? 'Sabor, afeto e tradição.' : 'Flavor, care, and tradition.'}</span></div>
           </div>
         </section>
 
@@ -291,7 +292,7 @@ const App = () => {
       <footer className="site-footer">
         <div className="footer-top">
           <a className="brand footer-brand" href="#inicio">
-            <span className="brand-mark"><Wheat size={25} strokeWidth={1.6} /></span>
+            <img className="brand-logo" src="./assets/capricho-logo.svg" alt="" width={54} height={54} />
             <span className="brand-copy"><strong>CAPRICHO</strong><small>PANIFICAÇÃO</small></span>
           </a>
           <p>{t.footerText}</p>
