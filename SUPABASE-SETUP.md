@@ -46,11 +46,12 @@ Quando o GitHub Pages publicar as alterações, acesse:
 
     https://nickebel.github.io/panificacao-capricho/admin.html
 
-Entre com a conta criada e autorizada. Cadastre nome, descrição e categoria em português e inglês, envie foto real (até 5 MB) ou informe um link HTTPS, e adicione preço se quiser.
+Entre com a conta criada e autorizada. Cadastre nome, descrição e categoria em português e use o botão “Traduzir para inglês” para preencher os campos em inglês. O formulário também tenta traduzir os campos em inglês que estejam vazios ao clicar em salvar. Revise as sugestões antes de salvar; nomes de alimentos e expressões regionais podem precisar de ajustes. Envie foto real (até 5 MB) ou informe um link HTTPS, e adicione preço se quiser.
 
 - Publicado no site: desmarque para manter o produto em rascunho, invisível ao público.
 - Disponível para pedidos: desmarque para mostrar como indisponível e bloquear o botão de adicionar ao carrinho.
 - Preço: deixe vazio se não quiser mostrar valor. O site não inventa preços.
+- Tradução: usa o serviço externo MyMemory Translation sem chave de API. O texto em português dos campos traduzidos é enviado a esse serviço; a disponibilidade e os limites dependem do provedor.
 
 As alterações ficam salvas no banco e aparecem no catálogo. O carrinho não exige cadastro de clientes e envia o pedido pelo WhatsApp somente depois de a pessoa revisar e tocar em enviar.
 
