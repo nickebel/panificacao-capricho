@@ -1,15 +1,15 @@
 (function () {
 'use strict';
 const cfg=window.CAPRICHO_SUPABASE_CONFIG||{},$=id=>document.getElementById(id);
-const setup=$('setup-warning'),login=$('login-panel'),app=$('admin-app'),loginForm=$('login-form'),loginNotice=$('login-notice'),form=$('product-form'),formNotice=$('form-notice'),listNotice=$('list-notice'),list=$('product-list'),count=$('product-count'),fileInput=$('product-image');
+const setup=$('setup-warning'),login=$('login-panel'),app=$('admin-app'),loginForm=$('login-form'),loginNotice=$('login-notice'),form=$('product-form'),formNotice=$('form-notice'),listNotice=$('list-notice'),list=$('product-list'),count=$('product-count'),fileInput=$('product-image'),passwordPanel=$('password-update-panel'),passwordForm=$('update-password-form'),passwordNotice=$('password-update-notice');
 let db=null,user=null,products=[],editingImage='';
 const maxSize=5*1024*1024,types=['image/jpeg','image/png','image/webp','image/avif'];
 function note(el,msg,type){el.textContent=msg;el.className='notice'+(type?' '+type:'');el.hidden=!msg}
 function esc(v){return String(v==null?'':v).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
 function safeUrl(v){try{const u=new URL(String(v||''));return u.protocol==='https:'?u.href:''}catch(_){return ''}}
 function money(v){return v==null||v===''?'Sem preço cadastrado':new Intl.NumberFormat('pt-BR',{style:'currency',currency:'BRL'}).format(Number(v))}
-function showLogin(){setup.hidden=true;login.hidden=false;app.hidden=true}
-function showApp(){setup.hidden=true;login.hidden=true;app.hidden=false}
+function showLogin(){setup.hidden=true;login.hidden=false;app.hidden=true;passwordPanel.hidden=true}
+function showApp(){setup.hidden=true;login.hidden=true;app.hidden=false;passwordPanel.hidden=true}
 async function isAdmin(u){const r=await db.from('catalog_admins').select('user_id').eq('user_id',u.id).maybeSingle();if(r.error)throw r.error;return Boolean(r.data)}
 async function loadProducts(){
 list.classList.add('loading');count.textContent='Carregando produtos…';
@@ -63,12 +63,23 @@ showApp();await loadProducts()
 }catch(e){note(loginNotice,e.message||'Não foi possível entrar.','error')}finally{btn.disabled=false;btn.textContent='Entrar'}
 }
 async function restore(){
+const recovering=window.location.hash.indexOf('type=recovery')>=0||new URLSearchParams(window.location.search).has('code');
+if(recovering){setup.hidden=true;login.hidden=true;app.hidden=true;passwordPanel.hidden=false;return}
 const r=await db.auth.getSession();if(r.error)throw r.error;const s=r.data.session;if(!s){showLogin();return}user=s.user;
 if(!await isAdmin(user)){await db.auth.signOut();user=null;showLogin();note(loginNotice,'Este usuário não tem autorização administrativa.','error');return}
 showApp();await loadProducts()
 }
 if(!cfg.url||!cfg.anonKey||!window.supabase||!window.supabase.createClient){setup.hidden=false;login.hidden=true;app.hidden=true;return}
 setup.hidden=true;db=window.supabase.createClient(cfg.url,cfg.anonKey,{auth:{autoRefreshToken:true,persistSession:true,detectSessionInUrl:true}});
+passwordForm.addEventListener('submit',async function(event){
+event.preventDefault();note(passwordNotice,'','');const newPass=$('new-password').value;
+if(newPass.length<8){note(passwordNotice,'A senha precisa ter pelo menos 8 caracteres.','error');return}
+const submit=$('update-password-submit');submit.disabled=true;
+try{const result=await db.auth.updateUser({password:newPass});if(result.error)throw result.error;await db.auth.signOut();$('new-password').value='';passwordPanel.hidden=true;showLogin();note(loginNotice,'Senha atualizada. Entre com a nova senha.','success');window.history.replaceState({},document.title,window.location.pathname)}catch(error){note(passwordNotice,'Não foi possível alterar a senha: '+(error.message||'tente novamente.'),'error')}finally{submit.disabled=false}
+});
+db.auth.onAuthStateChange(function(event){
+if(event==='PASSWORD_RECOVERY'){setup.hidden=true;login.hidden=true;app.hidden=true;passwordPanel.hidden=false}
+});
 loginForm.addEventListener('submit',loginSubmit);form.addEventListener('submit',save);$('cancel-edit').addEventListener('click',resetForm);$('new-product').addEventListener('click',()=>{resetForm();form.scrollIntoView({behavior:'smooth',block:'start'})});$('refresh-products').addEventListener('click',loadProducts);
 $('logout-button').addEventListener('click',async()=>{await db.auth.signOut();user=null;showLogin();note(loginNotice,'Você saiu da área administrativa.','success')});
 $('reset-password').addEventListener('click',async()=>{const email=$('login-email').value.trim();if(!email){note(loginNotice,'Digite seu e-mail acima para receber o link.','error');$('login-email').focus();return}const r=await db.auth.resetPasswordForEmail(email,{redirectTo:window.location.origin+window.location.pathname});if(r.error)note(loginNotice,'Não foi possível enviar: '+r.error.message,'error');else note(loginNotice,'Se o e-mail estiver cadastrado, o Supabase enviará as instruções.','success')});

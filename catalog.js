@@ -6,8 +6,8 @@
   let products = [];
   let lang = document.documentElement.lang === 'en' ? 'en' : 'pt';
   const text = {
-    pt: { setup: 'O catálogo oficial ainda não foi conectado. Os produtos de verdade serão publicados pelos responsáveis da padaria.', loading: 'Carregando o catálogo da padaria…', empty: 'Nenhum produto publicado no momento. Volte em breve para conferir as novidades.', error: 'Não foi possível carregar o catálogo agora. Tente novamente em alguns instantes.', add: 'Adicionar', unavailable: 'Indisponível', noImage: 'Foto do produto' },
-    en: { setup: 'The official catalog is not connected yet. The bakery team will publish the real products here.', loading: 'Loading the bakery catalog…', empty: 'No products are published right now. Please come back soon for updates.', error: 'The catalog could not be loaded right now. Please try again in a moment.', add: 'Add', unavailable: 'Unavailable', noImage: 'Product photo' }
+    pt: { setup: 'Estamos preparando nosso catálogo. Em breve, você poderá conferir os produtos disponíveis!', loading: 'Carregando o catálogo da padaria…', empty: 'Nenhum produto publicado no momento. Volte em breve para conferir as novidades.', error: 'Não foi possível carregar o catálogo agora. Tente novamente em alguns instantes.', add: 'Adicionar', unavailable: 'Indisponível', noImage: 'Foto do produto' },
+    en: { setup: 'Our catalog is being prepared. Soon, you will be able to browse the products available!', loading: 'Loading the bakery catalog…', empty: 'No products are published right now. Please come back soon for updates.', error: 'The catalog could not be loaded right now. Please try again in a moment.', add: 'Add', unavailable: 'Unavailable', noImage: 'Product photo' }
   };
   function esc(v) { return String(v == null ? '' : v).replace(/[&<>"']/g, function (c) { return ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]); }); }
   function safeImage(v) {
