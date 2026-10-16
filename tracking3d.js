@@ -43,6 +43,7 @@
   let lastInferenceAt = 0;
   let lastVideoTime = -1;
   let faceWasFound = false;
+  let faceOrigin = null;
   let lastFaceNoticeAt = 0;
   let target = { x: 0, y: 0, zoom: 0 };
   let current = { x: 0, y: 0, zoom: 0 };
@@ -131,7 +132,7 @@
   }
   function cameraFrame(now) {
     if (mode !== 'camera' || !landmarker || !video) return;
-    if (video.readyState >= 2 && video.currentTime !== lastVideoTime && now - lastInferenceAt >= (mobile.matches ? 75 : 45)) {
+    if (video.readyState >= 2 && video.currentTime !== lastVideoTime && now - lastInferenceAt >= (mobile.matches ? 48 : 32)) {
       lastVideoTime = video.currentTime;
       lastInferenceAt = now;
       try {
@@ -143,7 +144,18 @@
           const centerX = (leftEye.x + rightEye.x) / 2;
           const centerY = (leftEye.y + rightEye.y) / 2;
           const eyeSpan = Math.abs(rightEye.x - leftEye.x);
-          setTarget((centerX - 0.5) * 2.3, (centerY - 0.43) * 2.0, clamp((eyeSpan / 0.17 - 1) * 0.45, -0.35, 0.45));
+          if (!faceOrigin) {
+            faceOrigin = { x: centerX, y: centerY, eyeSpan: eyeSpan };
+            setTarget(0, 0, 0);
+          } else {
+            // Track movement relative to the user's initial, centered pose.
+            // A larger gain makes small natural head movements visible on mobile.
+            setTarget(
+              (centerX - faceOrigin.x) * 8.5,
+              (centerY - faceOrigin.y) * 7.2,
+              clamp((eyeSpan - faceOrigin.eyeSpan) * 4.5, -0.4, 0.4)
+            );
+          }
           if (!faceWasFound) setStatus('cameraReady');
           faceWasFound = true;
         } else {
@@ -177,6 +189,7 @@
     setTarget(0, 0, 0);
     setStatus('cameraLoading');
     faceWasFound = false;
+    faceOrigin = null;
     try {
       // Ask for camera permission directly from this click, before loading the model.
       const requestedStream = await navigator.mediaDevices.getUserMedia({
@@ -215,7 +228,8 @@
     }
   }
   function renderMotion() {
-    const amount = reduceMotion.matches ? 1 : 1 - Math.exp(-1 / (mobile.matches ? 8 : 10));
+    // Follow the target quickly; interpolation stays smooth without the extra CSS transform transition.
+    const amount = reduceMotion.matches ? 1 : (mobile.matches ? 0.34 : 0.28);
     current.x += (target.x - current.x) * amount;
     current.y += (target.y - current.y) * amount;
     current.zoom += (target.zoom - current.zoom) * amount;
@@ -223,16 +237,16 @@
       cards.forEach(function (card) {
         const depth = Number(card.getAttribute('data-depth')) || 1;
         const rotation = Number(card.getAttribute('data-rotate')) || 0;
-        const x = -current.x * depth * (mobile.matches ? 9 : 15);
-        const y = -current.y * depth * (mobile.matches ? 7 : 10);
-        const rotateX = current.y * depth * 2.2;
-        const rotateY = -current.x * depth * 3.2;
-        const rotateZ = rotation + current.x * depth * 1.1;
-        const scale = 1 + current.zoom * depth * 0.035;
-        card.style.transform = 'translate3d(' + x.toFixed(2) + 'px,' + y.toFixed(2) + 'px,' + (depth * 9).toFixed(2) + 'px) rotateX(' + rotateX.toFixed(2) + 'deg) rotateY(' + rotateY.toFixed(2) + 'deg) rotateZ(' + rotateZ.toFixed(2) + 'deg) scale(' + scale.toFixed(3) + ')';
+        const x = -current.x * depth * (mobile.matches ? 28 : 23);
+        const y = -current.y * depth * (mobile.matches ? 22 : 17);
+        const rotateX = current.y * depth * (mobile.matches ? 8.5 : 7);
+        const rotateY = -current.x * depth * (mobile.matches ? 11 : 9);
+        const rotateZ = rotation + current.x * depth * 2.4;
+        const scale = 1 + current.zoom * depth * 0.09;
+        card.style.transform = 'translate3d(' + x.toFixed(2) + 'px,' + y.toFixed(2) + 'px,' + (depth * (mobile.matches ? 15 : 18)).toFixed(2) + 'px) rotateX(' + rotateX.toFixed(2) + 'deg) rotateY(' + rotateY.toFixed(2) + 'deg) rotateZ(' + rotateZ.toFixed(2) + 'deg) scale(' + scale.toFixed(3) + ')';
       });
-      hero.style.setProperty('--hero-bg-x', (-current.x * 7).toFixed(2) + 'px');
-      hero.style.setProperty('--hero-bg-y', (-current.y * 5).toFixed(2) + 'px');
+      hero.style.setProperty('--hero-bg-x', (-current.x * (mobile.matches ? 12 : 10)).toFixed(2) + 'px');
+      hero.style.setProperty('--hero-bg-y', (-current.y * (mobile.matches ? 9 : 7)).toFixed(2) + 'px');
     }
     requestAnimationFrame(renderMotion);
   }
