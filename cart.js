@@ -206,6 +206,15 @@
     });
     closeButton.setAttribute('aria-label', lang === 'pt' ? 'Fechar pedido' : 'Close order');
     closeButton.title = lang === 'pt' ? 'Fechar pedido' : 'Close order';
+    $('[data-cart-add]').forEach(function (button) {
+      const name = itemName(button.getAttribute('data-cart-add'));
+      button.setAttribute('aria-label', lang === 'pt' ? 'Adicionar ' + name + ' ao pedido' : 'Add ' + name + ' to your order');
+      button.title = lang === 'pt' ? 'Adicionar ' + name + ' ao pedido' : 'Add ' + name + ' to your order';
+    });
+    $('[data-cart-sweets]').forEach(function (button) {
+      button.setAttribute('aria-label', lang === 'pt' ? 'Escolher doce para o pedido' : 'Choose a sweet for your order');
+      button.title = lang === 'pt' ? 'Escolher doce para o pedido' : 'Choose a sweet for your order';
+    });
     render();
   }
 
@@ -281,15 +290,20 @@
       labels[lang].location + ': ' + unitName,
       '',
       labels[lang].items,
-      ...Array.from(items.values()).map(item => '• ' + itemName(item.pt) + ' — ' + item.quantity),
-      nameInput.value.trim() ? labels[lang].customer + ': ' + nameInput.value.trim() : '',
-      notesInput.value.trim() ? labels[lang].notes + ': ' + notesInput.value.trim() : '',
-      '',
-      labels[lang].confirm
-    ].filter((line, index) => line !== '' || (index !== 2 && index !== 3));
+      ...Array.from(items.values()).map(item => '• ' + itemName(item.pt) + ' — ' + item.quantity)
+    ];
+    if (nameInput.value.trim()) message.push('', labels[lang].customer + ': ' + nameInput.value.trim());
+    if (notesInput.value.trim()) message.push('', labels[lang].notes + ': ' + notesInput.value.trim());
+    message.push('', labels[lang].confirm);
     const url = 'https://wa.me/' + destination + '?text=' + encodeURIComponent(message.join('\n'));
     // Open WhatsApp from the user's direct click; no order is sent automatically.
-    window.open(url, '_blank', 'noopener,noreferrer');
+    const whatsappWindow = window.open(url, '_blank');
+    if (whatsappWindow) {
+      whatsappWindow.opener = null;
+    } else {
+      // If popups are blocked, still follow the requested checkout link.
+      window.location.href = url;
+    }
   });
 
   document.addEventListener('change', function (event) {
