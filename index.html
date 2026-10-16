@@ -70,6 +70,7 @@ body.cart-open{overflow:hidden}
 @media(prefers-reduced-motion:reduce){.cart-dialog,.cart-toast,.cart-launcher,.product-add{animation:none!important;transition:none!important;transform:none!important}}
 
 .catalog-status{padding:30px 20px;border:1px dashed #d2b897;border-radius:15px;background:#fffaf2;color:var(--muted);text-align:center;font-size:.9rem;line-height:1.6}.catalog-status[hidden]{display:none!important}.product-category{position:absolute;z-index:4;top:12px;left:10px;max-width:calc(100% - 86px);padding:6px 10px;border:1px solid #fff6;border-radius:999px;background:#fffaf0e8;color:#543721;font-size:.62rem;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;backdrop-filter:blur(8px)}.product-price{display:block;margin-top:7px;font-weight:700;font-size:.82rem;color:#fff7dc}.product-unavailable{position:absolute;z-index:4;left:10px;bottom:10px;padding:5px 8px;border-radius:8px;background:#4a382de8;color:#fff;font-size:.64rem;font-weight:700}.product-add:disabled{opacity:.55;cursor:not-allowed;transform:none;box-shadow:none}.product-add:disabled:hover{transform:none;background:#fffaf0ed}.catalog-no-image{display:grid;place-items:center;width:100%;height:100%;background:#ead9c2;color:#895832;font-size:2rem}
+.illustrative-products{margin-bottom:52px}.illustrative-tag{position:absolute;z-index:2;top:11px;left:10px;max-width:calc(100% - 20px);padding:6px 9px;border:1px solid #fff8;border-radius:999px;background:#fffaf0eb;color:#5c402b;font-size:.61rem;font-weight:700;box-shadow:0 3px 12px #27180d20;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}.catalog-subsection{padding-top:43px;border-top:1px solid var(--line);scroll-margin-top:95px}.catalog-subsection .heading{margin-bottom:25px}.catalog-subsection .catalog-status{margin-bottom:0}
 </style>
 </head>
 <body>
@@ -80,7 +81,7 @@ body.cart-open{overflow:hidden}
    <span><span class="brand-name">Capricho</span><span class="brand-sub" data-pt="PANIFICAÇÃO" data-en="BAKERY">PANIFICAÇÃO</span></span>
   </a>
   <nav class="nav" id="site-nav" aria-label="Navegação principal">
-   <a href="#inicio" data-pt="Início" data-en="Home">Início</a><a href="#sobre" data-pt="Sobre nós" data-en="About us">Sobre nós</a><a href="#produtos" data-pt="Produtos" data-en="Products">Produtos</a><a href="#unidades" data-pt="Unidades" data-en="Locations">Unidades</a><a href="#contato" data-pt="Contato" data-en="Contact">Contato</a>
+   <a href="#inicio" data-pt="Início" data-en="Home">Início</a><a href="#sobre" data-pt="Sobre nós" data-en="About us">Sobre nós</a><a href="#produtos" data-pt="Especialidades" data-en="Specialties">Especialidades</a><a href="#catalogo" data-pt="Catálogo" data-en="Catalog">Catálogo</a><a href="#unidades" data-pt="Unidades" data-en="Locations">Unidades</a><a href="#contato" data-pt="Contato" data-en="Contact">Contato</a>
   </nav>
   <div class="actions">
    <button class="cart-launcher" id="cart-launcher" type="button" aria-label="Abrir carrinho" title="Abrir carrinho">
@@ -137,9 +138,71 @@ body.cart-open{overflow:hidden}
   <div class="benefit"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10h18L12 3 3 10Z"/><path d="M5 10v9m4-9v9m6-9v9m4-9v9M3 21h18"/></svg><div><strong data-pt="Sabor da nossa terra" data-en="Local flavors">Sabor da nossa terra</strong><small data-pt="Tradição nordestina" data-en="Northeastern tradition">Tradição nordestina</small></div></div>
   <div class="benefit"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 4v5h5M12 7v5l4 2"/></svg><div><strong data-pt="Perto de você" data-en="Close to you">Perto de você</strong><small data-pt="Duas unidades" data-en="Two locations">Duas unidades</small></div></div>
  </div></div>
- <section class="section" id="produtos"><div class="wrap"><div class="heading"><span class="eyebrow" data-pt="Nossos produtos" data-en="Our products">Nossos produtos</span><h2 data-pt="Sabor em todas as ocasiões" data-en="Flavor for every occasion">Sabor em todas as ocasiões</h2><p data-pt="Do café da manhã à pausa da tarde, aproveite pães, salgados, bolos, doces e o nosso famoso suco natural de laranja." data-en="From breakfast to an afternoon break, enjoy fresh bread, savory snacks, cakes, sweets, and our famous fresh orange juice.">Do café da manhã à pausa da tarde, aproveite pães, salgados, bolos, doces e o nosso famoso suco natural de laranja.</p></div>
- <div class="catalog-status" id="catalog-status" role="status" aria-live="polite">O catálogo oficial será preenchido pela equipe da padaria.</div>
-  <div class="products" id="product-grid" aria-live="polite"></div></div></section>
+ 
+ <section class="section" id="produtos">
+  <div class="wrap">
+   <div class="heading">
+    <span class="eyebrow" data-pt="Conheça a Capricho" data-en="Discover Capricho">Conheça a Capricho</span>
+    <h2 data-pt="Algumas das nossas especialidades" data-en="Some of our specialties">Algumas das nossas especialidades</h2>
+    <p data-pt="Veja exemplos dos tipos de produtos que você pode encontrar na padaria. As fotos são ilustrativas; a disponibilidade deve ser conferida no catálogo oficial abaixo." data-en="Explore examples of the kinds of products you may find at our bakery. Photos are illustrative; please check the official catalog below for current availability.">Veja exemplos dos tipos de produtos que você pode encontrar na padaria. As fotos são ilustrativas; a disponibilidade deve ser conferida no catálogo oficial abaixo.</p>
+   </div>
+   <div class="products illustrative-products">
+    <article class="product">
+     <img src="https://images.pexels.com/photos/5860731/pexels-photo-5860731.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1400" alt="Exemplo ilustrativo de tapioca servida no prato" loading="lazy" decoding="async">
+     <span class="illustrative-tag" data-pt="Imagem ilustrativa" data-en="Illustrative image">Imagem ilustrativa</span>
+     <div class="product-info"><h3 data-pt="Tapiocas" data-en="Tapioca">Tapiocas</h3><p data-pt="Opções para um lanche ou café da manhã." data-en="Options for a snack or breakfast.">Opções para um lanche ou café da manhã.</p></div>
+    </article>
+    <article class="product">
+     <img src="./assets/cuscuz-nordestino.webp?v=20261016-2" alt="Exemplo ilustrativo de cuscuz nordestino" loading="lazy" decoding="async">
+     <span class="illustrative-tag" data-pt="Imagem ilustrativa" data-en="Illustrative image">Imagem ilustrativa</span>
+     <div class="product-info"><h3 data-pt="Cuscuz nordestino" data-en="Northeastern couscous">Cuscuz nordestino</h3><p data-pt="Uma referência aos sabores da nossa região." data-en="A taste inspired by our region.">Uma referência aos sabores da nossa região.</p></div>
+    </article>
+    <article class="product">
+     <img src="https://images.pexels.com/photos/9304020/pexels-photo-9304020.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1400" alt="Exemplo ilustrativo de café da manhã" loading="lazy" decoding="async">
+     <span class="illustrative-tag" data-pt="Imagem ilustrativa" data-en="Illustrative image">Imagem ilustrativa</span>
+     <div class="product-info"><h3 data-pt="Café da manhã" data-en="Breakfast">Café da manhã</h3><p data-pt="Sugestões para começar bem o dia." data-en="Ideas to start your day well.">Sugestões para começar bem o dia.</p></div>
+    </article>
+    <article class="product">
+     <img src="https://images.pexels.com/photos/17301617/pexels-photo-17301617.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1400" alt="Exemplo ilustrativo de pães assados" loading="lazy" decoding="async">
+     <span class="illustrative-tag" data-pt="Imagem ilustrativa" data-en="Illustrative image">Imagem ilustrativa</span>
+     <div class="product-info"><h3 data-pt="Pães" data-en="Bread">Pães</h3><p data-pt="Pães e itens para o dia a dia." data-en="Bread and everyday bakery staples.">Pães e itens para o dia a dia.</p></div>
+    </article>
+    <article class="product">
+     <img src="https://images.pexels.com/photos/17409458/pexels-photo-17409458.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1400" alt="Exemplo ilustrativo de salgado assado ou frito" loading="lazy" decoding="async">
+     <span class="illustrative-tag" data-pt="Imagem ilustrativa" data-en="Illustrative image">Imagem ilustrativa</span>
+     <div class="product-info"><h3 data-pt="Salgados" data-en="Savory snacks">Salgados</h3><p data-pt="Alternativas para um lanche rápido." data-en="Options for a quick snack.">Alternativas para um lanche rápido.</p></div>
+    </article>
+    <article class="product">
+     <img src="https://images.pexels.com/photos/17712832/pexels-photo-17712832.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1400" alt="Exemplo ilustrativo de bolos e fatias" loading="lazy" decoding="async">
+     <span class="illustrative-tag" data-pt="Imagem ilustrativa" data-en="Illustrative image">Imagem ilustrativa</span>
+     <div class="product-info"><h3 data-pt="Bolos" data-en="Cakes">Bolos</h3><p data-pt="Para acompanhar o café ou compartilhar." data-en="To enjoy with coffee or share.">Para acompanhar o café ou compartilhar.</p></div>
+    </article>
+    <article class="product product-sweets">
+     <div class="product-sweets-images">
+      <img src="https://images.pexels.com/photos/7474117/pexels-photo-7474117.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=900" alt="Exemplo ilustrativo de cannoli" loading="lazy" decoding="async">
+      <img src="https://images.pexels.com/photos/8525753/pexels-photo-8525753.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=900" alt="Exemplo ilustrativo de cupcake" loading="lazy" decoding="async">
+      <img src="https://images.pexels.com/photos/24960960/pexels-photo-24960960.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=900" alt="Exemplo ilustrativo de donuts" loading="lazy" decoding="async">
+     </div>
+     <span class="illustrative-tag" data-pt="Imagem ilustrativa" data-en="Illustrative image">Imagem ilustrativa</span>
+     <div class="product-info"><h3 data-pt="Doces" data-en="Sweets">Doces</h3><p data-pt="Exemplos de doces e sobremesas." data-en="Examples of sweets and desserts.">Exemplos de doces e sobremesas.</p></div>
+    </article>
+    <article class="product">
+     <img src="https://images.pexels.com/photos/18679302/pexels-photo-18679302.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1400" alt="Exemplo ilustrativo de suco de laranja" loading="lazy" decoding="async">
+     <span class="illustrative-tag" data-pt="Imagem ilustrativa" data-en="Illustrative image">Imagem ilustrativa</span>
+     <div class="product-info"><h3 data-pt="Suco natural de laranja" data-en="Fresh orange juice">Suco natural de laranja</h3><p data-pt="Uma opção refrescante para acompanhar seu pedido." data-en="A refreshing option to go with your order.">Uma opção refrescante para acompanhar seu pedido.</p></div>
+    </article>
+   </div>
+   <div class="catalog-subsection" id="catalogo">
+    <div class="heading">
+     <span class="eyebrow" data-pt="Produtos oficiais" data-en="Official products">Produtos oficiais</span>
+     <h2 data-pt="Catálogo da padaria" data-en="Bakery catalog">Catálogo da padaria</h2>
+     <p data-pt="Aqui aparecem os produtos, fotos, preços e disponibilidade cadastrados pelos responsáveis da Panificação Capricho." data-en="This is where products, photos, prices, and availability managed by Panificação Capricho staff are shown.">Aqui aparecem os produtos, fotos, preços e disponibilidade cadastrados pelos responsáveis da Panificação Capricho.</p>
+    </div>
+    <div class="catalog-status" id="catalog-status" role="status" aria-live="polite">Carregando catálogo…</div>
+    <div class="products" id="product-grid" aria-live="polite"></div>
+   </div>
+  </div>
+ </section>
  <section class="section story" id="sobre"><div class="wrap story-grid"><div class="story-copy"><span class="eyebrow" data-pt="Nosso jeito de fazer" data-en="Our way of doing things">Nosso jeito de fazer</span><h2 data-pt="Tradição que acolhe. Sabor que fica na memória." data-en="A welcoming tradition. Flavor to remember.">Tradição que acolhe. Sabor que fica na memória.</h2><p data-pt="Na Panificação Capricho, cada visita é uma oportunidade de compartilhar sabores, carinho e aquele aconchego que combina com a nossa terra." data-en="At Capricho Bakery, every visit is a chance to share flavors, care, and the warmth of our region.">Na Panificação Capricho, cada visita é uma oportunidade de compartilhar sabores, carinho e aquele aconchego que combina com a nossa terra.</p><p data-pt="De pães e salgados a bolos, doces e ao nosso famoso suco natural de laranja, queremos fazer parte dos pequenos momentos que tornam o dia especial." data-en="From fresh bread and savory snacks to cakes, sweets, and our famous fresh orange juice, we want to be part of the little moments that make a day special.">De pães e salgados a bolos, doces e ao nosso famoso suco natural de laranja, queremos fazer parte dos pequenos momentos que tornam o dia especial.</p></div><aside class="story-panel"><h3 data-pt="O que tem em cada detalhe" data-en="What goes into every detail">O que tem em cada detalhe</h3><div class="value-list">
  <div class="value"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 4 4L19 6"/></svg><div><strong data-pt="Sabores que lembram casa" data-en="Flavors that feel like home">Sabores que lembram casa</strong><span data-pt="Receitas e escolhas que valorizam a nossa região." data-en="Recipes and choices that celebrate our region.">Receitas e escolhas que valorizam a nossa região.</span></div></div>
  <div class="value"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 4 4L19 6"/></svg><div><strong data-pt="Cuidado em cada preparo" data-en="Care in every preparation">Cuidado em cada preparo</strong><span data-pt="Atenção ao que servimos e a quem recebemos." data-en="Attention to what we serve and those we welcome.">Atenção ao que servimos e a quem recebemos.</span></div></div>
@@ -153,7 +216,7 @@ body.cart-open{overflow:hidden}
  <div class="instagram" id="contato"><div class="insta-copy"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><path d="M17.5 6.5h.01"/></svg><div><strong data-pt="Acompanhe nosso dia a dia" data-en="Follow our everyday moments">Acompanhe nosso dia a dia</strong><p data-pt="Novidades, sabores e momentos da Capricho." data-en="News, flavors, and moments from Capricho.">Novidades, sabores e momentos da Capricho.</p></div></div><a class="button" href="https://www.instagram.com/panificacaocapricho/" target="_blank" rel="noopener noreferrer"><span data-pt="Seguir no Instagram" data-en="Follow on Instagram">Seguir no Instagram</span> <svg class="external-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></a></div>
  </div></section>
 </main>
-<footer class="footer"><div class="wrap"><div class="footer-main"><a class="brand" href="#inicio"><img class="brand-mark" src="./assets/logo-capricho.svg?v=20261016-4" alt=""><span><span class="brand-name">Capricho</span><span class="brand-sub" data-pt="PANIFICAÇÃO" data-en="BAKERY">PANIFICAÇÃO</span></span></a><div class="slogan" data-pt="Mais que uma padaria, um pedacinho de felicidade todos os dias." data-en="More than a bakery, a little piece of happiness every day.">Mais que uma padaria, um pedacinho de felicidade todos os dias.</div><nav class="footer-nav" aria-label="Navegação do rodapé"><a href="#inicio" data-pt="Início" data-en="Home">Início</a><a href="#sobre" data-pt="Sobre nós" data-en="About us">Sobre nós</a><a href="#produtos" data-pt="Produtos" data-en="Products">Produtos</a><a href="#unidades" data-pt="Unidades" data-en="Locations">Unidades</a><a href="#contato" data-pt="Contato" data-en="Contact">Contato</a><a href="./politica-de-privacidade.html" data-pt="Privacidade" data-en="Privacy">Privacidade</a><a href="./admin.html" data-pt="Área dos responsáveis" data-en="Staff area">Área dos responsáveis</a></nav></div><div class="footer-bottom"><span>© <span id="year"></span> Panificação Capricho. <span data-pt="Todos os direitos reservados." data-en="All rights reserved.">Todos os direitos reservados.</span></span><button class="back-top" id="back-top" type="button" data-pt="Voltar ao topo" data-en="Back to top">Voltar ao topo <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5m-6 6 6-6 6 6"/></svg></button></div></div></footer>
+<footer class="footer"><div class="wrap"><div class="footer-main"><a class="brand" href="#inicio"><img class="brand-mark" src="./assets/logo-capricho.svg?v=20261016-4" alt=""><span><span class="brand-name">Capricho</span><span class="brand-sub" data-pt="PANIFICAÇÃO" data-en="BAKERY">PANIFICAÇÃO</span></span></a><div class="slogan" data-pt="Mais que uma padaria, um pedacinho de felicidade todos os dias." data-en="More than a bakery, a little piece of happiness every day.">Mais que uma padaria, um pedacinho de felicidade todos os dias.</div><nav class="footer-nav" aria-label="Navegação do rodapé"><a href="#inicio" data-pt="Início" data-en="Home">Início</a><a href="#sobre" data-pt="Sobre nós" data-en="About us">Sobre nós</a><a href="#produtos" data-pt="Especialidades" data-en="Specialties">Especialidades</a><a href="#catalogo" data-pt="Catálogo" data-en="Catalog">Catálogo</a><a href="#unidades" data-pt="Unidades" data-en="Locations">Unidades</a><a href="#contato" data-pt="Contato" data-en="Contact">Contato</a><a href="./politica-de-privacidade.html" data-pt="Privacidade" data-en="Privacy">Privacidade</a><a href="./admin.html" data-pt="Área dos responsáveis" data-en="Staff area">Área dos responsáveis</a></nav></div><div class="footer-bottom"><span>© <span id="year"></span> Panificação Capricho. <span data-pt="Todos os direitos reservados." data-en="All rights reserved.">Todos os direitos reservados.</span></span><button class="back-top" id="back-top" type="button" data-pt="Voltar ao topo" data-en="Back to top">Voltar ao topo <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5m-6 6 6-6 6 6"/></svg></button></div></div></footer>
 
 <div class="cart-backdrop" id="cart-backdrop" hidden>
  <section class="cart-dialog" id="cart-dialog" role="dialog" aria-modal="true" aria-labelledby="cart-title" tabindex="-1">
