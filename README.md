@@ -48,3 +48,10 @@ As imagens são servidas pelo CDN do Pexels. A disponibilização no site depend
 
 - **Logo:** `assets/logo-capricho.png` é o arquivo original fornecido pelo proprietário, incorporado sem redesenho, recorte, alteração de cor ou remoção do fundo.
 - **Foto do cuscuz nordestino:** [Cuscuz nordestino.jpg](https://commons.wikimedia.org/wiki/File:Cuscuz_nordestino.jpg), de André Koehne, foto original com 2.992 × 2.992 px. Licença Creative Commons Atribuição-CompartilhaIgual 4.0 (CC BY-SA 4.0). O arquivo é servido diretamente do Wikimedia Commons: https://upload.wikimedia.org/wikipedia/commons/3/3f/Cuscuz_nordestino.jpg
+
+
+## Catálogo oficial e área administrativa
+
+Os cards fixos ilustrativos foram removidos do catálogo público. O site busca apenas os produtos que os responsáveis publicarem no Supabase. O painel administrativo está em admin.html e permite login, cadastro/edição/exclusão, fotografia, preço opcional, publicação e disponibilidade.
+
+A integração não fica operacional até criar um projeto Supabase, executar supabase/setup.sql, autorizar o usuário responsável em public.catalog_admins e preencher os campos públicos em supabase-config.js. Leia SUPABASE-SETUP.md para o passo a passo. Não publique chaves service_role ou secret.

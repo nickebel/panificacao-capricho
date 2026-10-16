@@ -18,7 +18,7 @@
       items: 'Itens do pedido:',
       customer: 'Nome',
       notes: 'Observações',
-      confirm: 'Preços e disponibilidade a confirmar com a unidade.',
+      confirm: 'Confira os valores cadastrados e confirme a disponibilidade com a unidade.',
       locationRequired: 'Escolha uma unidade para enviar o pedido.',
       noItems: 'Adicione pelo menos um produto antes de continuar.',
       centro: 'Unidade Centro',
@@ -38,7 +38,7 @@
       items: 'Order items:',
       customer: 'Name',
       notes: 'Notes',
-      confirm: 'Prices and availability to be confirmed by the location.',
+      confirm: 'Check the catalog prices and confirm availability with the location.',
       locationRequired: 'Choose a location before sending the order.',
       noItems: 'Add at least one product before continuing.',
       centro: 'Centro location',
@@ -61,6 +61,8 @@
   const launcher = $('#cart-launcher');
   const countEl = $('#cart-count');
   const totalEl = $('#cart-total-count');
+  const totalValueRow = $('#cart-total-row');
+  const totalValueEl = $('#cart-total-value');
   const backdrop = $('#cart-backdrop');
   const dialog = $('#cart-dialog');
   const closeButton = $('#cart-close');
@@ -92,12 +94,21 @@
     svg.appendChild(p);
     return svg;
   }
-  function itemName(key) {
-    return lang === 'en' ? (productNames[key] || key) : key;
+  function itemName(value) {
+    if (value && typeof value === 'object') return lang === 'en' ? (value.en || productNames[value.pt] || value.pt) : value.pt;
+    return lang === 'en' ? (productNames[value] || value) : value;
   }
   function totalQuantity() {
     let total = 0;
     items.forEach(item => total += item.quantity);
+    return total;
+  }
+  function money(value) {
+    return new Intl.NumberFormat(lang === 'en' ? 'en-US' : 'pt-BR', { style: 'currency', currency: 'BRL' }).format(value);
+  }
+  function cartValue() {
+    let total = 0;
+    items.forEach(item => total += item.price * item.quantity);
     return total;
   }
   function setCartLabel() {
@@ -113,15 +124,18 @@
     window.clearTimeout(toastTimer);
     toastTimer = window.setTimeout(() => toast.classList.remove('is-visible'), 2300);
   }
-  function addItem(ptName, enName) {
-    const id = ptName;
+  function addItem(ptName, enName, productId, priceValue) {
+    const id = productId || ptName;
+    const parsedPrice = priceValue === undefined || priceValue === null || priceValue === '' ? null : Number(priceValue);
     if (items.has(id)) {
-      items.get(id).quantity += 1;
+      const item = items.get(id);
+      item.quantity += 1;
+      if (Number.isFinite(parsedPrice) && parsedPrice >= 0) item.price = parsedPrice;
     } else {
-      items.set(id, { id, pt: ptName, en: enName || productNames[ptName] || ptName, quantity: 1 });
+      items.set(id, { id, pt: ptName, en: enName || productNames[ptName] || ptName, quantity: 1, price: Number.isFinite(parsedPrice) && parsedPrice >= 0 ? parsedPrice : null });
     }
     render();
-    toastMessage(labels[lang].added(itemName(id)));
+    toastMessage(labels[lang].added(itemName(items.get(id))));
   }
   function createQtyButton(label, path, onClick, className) {
     const button = document.createElement('button');
@@ -135,6 +149,11 @@
   function render() {
     const currentItems = Array.from(items.values());
     itemList.replaceChildren();
+    if (totalValueRow && totalValueEl) {
+      const completePrices = currentItems.length > 0 && currentItems.every(item => item.price !== null && Number.isFinite(item.price));
+      totalValueRow.hidden = !completePrices;
+      totalValueEl.textContent = completePrices ? money(currentItems.reduce((sum, item) => sum + item.price * item.quantity, 0)) : '';
+    }
     emptyPanel.hidden = currentItems.length > 0;
     itemList.hidden = currentItems.length === 0;
     currentItems.forEach(item => {
@@ -143,13 +162,13 @@
       const main = document.createElement('div');
       main.className = 'cart-item-main';
       const title = document.createElement('strong');
-      title.textContent = itemName(item.pt);
+      title.textContent = itemName(item);
       const sub = document.createElement('small');
-      sub.textContent = lang === 'pt' ? 'Quantidade: ' + item.quantity : 'Quantity: ' + item.quantity;
+      sub.textContent = (lang === 'pt' ? 'Quantidade: ' : 'Quantity: ') + item.quantity + (item.price !== null ? ' × ' + money(item.price) : '');
       main.append(title, sub);
       const actions = document.createElement('div');
       actions.className = 'cart-item-actions';
-      actions.appendChild(createQtyButton(labels[lang].decrease(itemName(item.pt)), 'M5 12h14', function () {
+      actions.appendChild(createQtyButton(labels[lang].decrease(itemName(item)), 'M5 12h14', function () {
         item.quantity -= 1;
         if (item.quantity <= 0) items.delete(item.id);
         render();
@@ -158,14 +177,14 @@
       quantity.className = 'cart-qty-number';
       quantity.textContent = String(item.quantity);
       actions.appendChild(quantity);
-      actions.appendChild(createQtyButton(labels[lang].increase(itemName(item.pt)), 'M12 5v14M5 12h14', function () {
+      actions.appendChild(createQtyButton(labels[lang].increase(itemName(item)), 'M12 5v14M5 12h14', function () {
         item.quantity += 1;
         render();
       }));
-      actions.appendChild(createQtyButton(labels[lang].remove(itemName(item.pt)), 'm6 6 12 12M18 6 6 18', function () {
+      actions.appendChild(createQtyButton(labels[lang].remove(itemName(item)), 'm6 6 12 12M18 6 6 18', function () {
         items.delete(item.id);
         render();
-        toastMessage(labels[lang].removed(itemName(item.pt)));
+        toastMessage(labels[lang].removed(itemName(item)));
       }, 'cart-remove'));
       row.append(main, actions);
       itemList.appendChild(row);
@@ -250,26 +269,26 @@
       }
     }
   });
-  $$('[data-cart-add]').forEach(button => {
-    button.addEventListener('click', function () {
-      const pt = button.getAttribute('data-cart-add');
-      const en = button.getAttribute('data-cart-add-en');
-      addItem(pt, en);
-    });
-  });
-  $$('[data-cart-sweets]').forEach(button => {
-    button.addEventListener('click', function () { openSweetPicker(button); });
-  });
-  sweetChoiceButtons.forEach(button => {
-    button.addEventListener('click', function () {
-      const pt = button.getAttribute('data-sweet-choice');
-      const en = button.getAttribute('data-sweet-choice-en');
-      const picker = button.closest('.sweet-choices');
+  document.addEventListener('click', function (event) {
+    const target = event.target instanceof Element ? event.target : null;
+    if (!target) return;
+    const addButton = target.closest('[data-cart-add]');
+    if (addButton) {
+      if (addButton.disabled) return;
+      addItem(addButton.getAttribute('data-cart-add') || '', addButton.getAttribute('data-cart-add-en') || '', addButton.getAttribute('data-cart-id') || undefined, addButton.getAttribute('data-cart-price'));
+      return;
+    }
+    const sweetTrigger = target.closest('[data-cart-sweets]');
+    if (sweetTrigger) { openSweetPicker(sweetTrigger); return; }
+    const sweetChoice = target.closest('[data-sweet-choice]');
+    if (sweetChoice) {
+      const pt = sweetChoice.getAttribute('data-sweet-choice'), en = sweetChoice.getAttribute('data-sweet-choice-en');
+      const picker = sweetChoice.closest('.sweet-choices');
       if (picker) picker.hidden = true;
-      const trigger = button.closest('.product')?.querySelector('[data-cart-sweets]');
+      const trigger = sweetChoice.closest('.product')?.querySelector('[data-cart-sweets]');
       if (trigger) trigger.setAttribute('aria-expanded', 'false');
       addItem(pt, en);
-    });
+    }
   });
   checkout.addEventListener('click', function () {
     if (!items.size) {
@@ -290,10 +309,12 @@
       labels[lang].location + ': ' + unitName,
       '',
       labels[lang].items,
-      ...Array.from(items.values()).map(item => '• ' + itemName(item.pt) + ' — ' + item.quantity)
+      ...Array.from(items.values()).map(item => '• ' + itemName(item) + ' — ' + item.quantity + (item.price !== null ? ' × ' + money(item.price) : ''))
     ];
     if (nameInput.value.trim()) message.push('', labels[lang].customer + ': ' + nameInput.value.trim());
     if (notesInput.value.trim()) message.push('', labels[lang].notes + ': ' + notesInput.value.trim());
+    const everyItemHasPrice = items.size > 0 && Array.from(items.values()).every(item => item.price !== null && Number.isFinite(item.price));
+    if (everyItemHasPrice) message.push('', (lang === 'pt' ? 'Total estimado: ' : 'Estimated total: ') + money(cartValue()));
     message.push('', labels[lang].confirm);
     const url = 'https://wa.me/' + destination + '?text=' + encodeURIComponent(message.join('\n'));
     // Open WhatsApp from the user's direct click; no order is sent automatically.

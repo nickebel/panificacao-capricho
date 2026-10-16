@@ -54,7 +54,7 @@ main{padding:34px 0 64px}.policy-grid{display:grid;grid-template-columns:230px m
 <div data-policy-lang="pt">
 <h2 id="scope">1. Escopo e responsável</h2>
 <p>Esta Política de Privacidade descreve o funcionamento atual do site institucional da <strong>Panificação Capricho</strong>, em São Miguel dos Campos, Alagoas. O site apresenta a padaria e seus produtos, informa como chegar e oferece links para contato por serviços externos.</p>
-<p>O site não exige cadastro, login ou formulário próprio de contato. O catálogo agora oferece um carrinho temporário: você adiciona itens, escolhe uma unidade e pode abrir o WhatsApp com o resumo do pedido já preenchido. Não há pagamento dentro do site; preços, disponibilidade e demais condições são confirmados diretamente pela unidade.</p>
+<p>O catálogo público não exige cadastro de visitante. Os produtos publicados são carregados do Supabase. A área administrativa exige login e é restrita aos usuários autorizados pela padaria; nela, os responsáveis podem cadastrar, editar, publicar e remover produtos e imagens. O carrinho é temporário e abre o WhatsApp com o pedido pré-preenchido. Não há pagamento dentro do site.</p>
 <h2 id="data">2. Quais informações podem ser processadas</h2>
 <h3>Dados técnicos de acesso</h3>
 <p>A infraestrutura de hospedagem e os serviços usados para entregar o site podem processar dados técnicos da conexão, como endereço IP, tipo de navegador e dispositivo, data e horário, páginas solicitadas e informações de diagnóstico. A disponibilidade e o período de retenção desses registros dependem dos provedores envolvidos.</p>
@@ -62,7 +62,7 @@ main{padding:34px 0 64px}.policy-grid{display:grid;grid-template-columns:230px m
 <p>O efeito de perspectiva 3D pode acompanhar movimentos do rosto, mas <strong>a câmera só é solicitada quando você pressiona “Ativar câmera”</strong>. Você pode negar a permissão ou usar o modo “Mouse / toque”, sem câmera.</p>
 <p>Quando habilitado, o código do site usa a câmera no próprio navegador para estimar pontos de referência do rosto e mover as camadas visuais. O código da Capricho não envia os quadros da câmera nem os pontos do rosto para um servidor da padaria e não os salva em uma base de dados. O rastreador é executado no dispositivo; a biblioteca e o arquivo do modelo são baixados de serviços externos, que podem receber dados técnicos das requisições de download segundo suas próprias políticas.</p>
 <h3>Recursos carregados de terceiros</h3>
-<p>O site carrega fontes do Google Fonts e fotografias hospedadas no Pexels. Quando o efeito de câmera é ativado, o navegador também solicita a biblioteca MediaPipe por meio do jsDelivr e o modelo de visão por meio do Google Cloud Storage. Esses pedidos podem revelar aos respectivos provedores dados técnicos necessários à conexão.</p>
+<p>O site carrega fontes do Google Fonts e fotografias de serviços externos quando presentes. Ele consulta o Supabase para exibir o catálogo. Quando o efeito de câmera é ativado, o navegador também solicita a biblioteca MediaPipe por meio do jsDelivr e o modelo de visão por meio do Google Cloud Storage. Esses pedidos podem revelar aos respectivos provedores dados técnicos necessários à conexão.</p>
 <h3>Mensagens e links externos</h3>
 <p>Se você abrir o Google Maps, WhatsApp ou Instagram, a navegação passa a seguir as regras do serviço escolhido. A Capricho recebe apenas as informações que você decidir enviar em uma conversa, como seu nome, telefone ou conteúdo da mensagem.</p>
 <h3>Pedidos pelo carrinho e WhatsApp</h3>
@@ -77,23 +77,24 @@ main{padding:34px 0 64px}.policy-grid{display:grid;grid-template-columns:230px m
 </ul>
 <p>As informações não são usadas pelo site para vender perfis pessoais, decidir crédito ou executar publicidade comportamental.</p>
 <h2 id="providers">4. Serviços de terceiros e compartilhamento</h2>
-<p>O site utiliza a hospedagem GitHub Pages, fontes do Google Fonts, imagens do Pexels e, para o efeito opcional de câmera, biblioteca do jsDelivr e modelo hospedado no Google Cloud Storage. Os links de localização e contato direcionam ao Google Maps, WhatsApp e Instagram. Esses serviços são operados por terceiros e estão sujeitos às respectivas políticas e práticas de privacidade.</p>
+<p>O site utiliza GitHub Pages para hospedagem, Supabase para consultar o catálogo, autenticar os responsáveis e armazenar fotos de produtos, Google Fonts para fontes e fotografias externas quando presentes. Para o efeito opcional de câmera, usa a biblioteca MediaPipe pelo jsDelivr e o modelo hospedado no Google Cloud Storage. Os links de localização e contato direcionam ao Google Maps, WhatsApp e Instagram. Esses serviços são operados por terceiros e estão sujeitos às respectivas políticas e práticas de privacidade.</p>
 <ul>
 <li><a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement" target="_blank" rel="noopener noreferrer">Política de privacidade do GitHub</a></li>
+<li><a href="https://supabase.com/privacy" target="_blank" rel="noopener noreferrer">Política de privacidade do Supabase</a></li>
 <li><a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">Política de privacidade do Google</a></li>
 <li><a href="https://www.pexels.com/privacy-policy/" target="_blank" rel="noopener noreferrer">Política de privacidade do Pexels</a></li>
 <li><a href="https://www.whatsapp.com/legal/privacy-policy" target="_blank" rel="noopener noreferrer">Política de privacidade do WhatsApp</a></li>
 <li><a href="https://privacycenter.instagram.com/policy/" target="_blank" rel="noopener noreferrer">Política de privacidade do Instagram</a></li>
 </ul>
 <h2 id="retention">5. Armazenamento e retenção</h2>
-<p>O site não mantém uma conta ou perfil de visitante e não armazena quadros da câmera ou pontos do rosto. Dados técnicos de acesso podem ser mantidos pelos provedores de hospedagem e de recursos pelo período determinado por eles. Mensagens enviadas por WhatsApp ou Instagram seguem os sistemas e prazos desses serviços e o tratamento associado à conversa com a Capricho.</p>
+<p>O site não cria contas para visitantes nem armazena os itens do carrinho em um banco de dados; eles ficam apenas na memória da página aberta. Os dados dos produtos e as imagens cadastradas pelos responsáveis permanecem no projeto Supabase enquanto forem mantidos lá. As contas administrativas são geridas pela autenticação do Supabase. Dados técnicos de acesso podem ser retidos pelos provedores pelo período definido por eles. Mensagens enviadas por WhatsApp ou Instagram seguem os sistemas e prazos desses serviços.</p>
 <h2 id="rights">6. Seus direitos e suas escolhas</h2>
 <p>Você pode recusar o uso da câmera e continuar navegando com o mouse ou toque. Também pode revogar a permissão de câmera nas configurações do navegador ou do dispositivo.</p>
 <p>Conforme a legislação de proteção de dados aplicável, você pode solicitar informações sobre o tratamento dos seus dados, confirmação de tratamento, acesso, correção e, quando cabível, eliminação, anonimização ou bloqueio, além de revogar consentimento quando essa for a base aplicável. A resposta pode depender da natureza do pedido e de obrigações legais de conservação.</p>
 <p>Para exercer esses direitos em relação a uma interação com a Capricho, use os canais de contato abaixo e descreva seu pedido. Não envie documentos sensíveis desnecessários por mensagem.</p>
 <p>Mais informações sobre os direitos dos titulares estão disponíveis no site da <a href="https://www.gov.br/anpd/pt-br/assuntos/titular-de-dados/direito-dos-titulares" target="_blank" rel="noopener noreferrer">Autoridade Nacional de Proteção de Dados (ANPD)</a>.</p>
 <h2 id="security">7. Segurança e atualizações</h2>
-<p>O site é publicado como conteúdo estático e busca limitar a coleta direta de informações. Nenhum serviço conectado à internet pode garantir segurança absoluta. Esta política pode ser atualizada quando recursos, provedores ou requisitos legais mudarem; a data no início da página indicará a revisão mais recente.</p>
+<p>O site público é estático e consulta a base de produtos do Supabase; o painel administrativo usa autenticação e regras de acesso no banco e no armazenamento. Nenhum serviço conectado à internet pode garantir segurança absoluta. Esta política pode ser atualizada quando recursos, provedores ou requisitos legais mudarem; a data no início da página indicará a revisão mais recente.</p>
 <h2 id="contact">8. Contato sobre privacidade</h2>
 <p>Para dúvidas sobre esta política ou solicitações relativas a informações enviadas diretamente à Capricho, entre em contato pelos canais oficiais atualmente publicados no site:</p>
 <div class="contact-links"><a href="https://wa.me/5582993292147" target="_blank" rel="noopener noreferrer">WhatsApp · Unidade 1 ↗</a><a href="https://wa.me/5582988198072" target="_blank" rel="noopener noreferrer">WhatsApp · Unidade 2 ↗</a><a href="https://www.instagram.com/panificacaocapricho/" target="_blank" rel="noopener noreferrer">Instagram ↗</a></div>
