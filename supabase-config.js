@@ -1,4 +1,7 @@
 /* Public browser configuration for Supabase.
-   Paste the project URL and publishable/anon key here after creating the project.
+   The project URL and publishable/anon key are intended for browser use.
    Never put a service_role/secret key in this file. */
-window.CAPRICHO_SUPABASE_CONFIG = { url: "", anonKey: "" };
+window.CAPRICHO_SUPABASE_CONFIG = {
+  url: "https://plfwkkxyfbjcaeyowlzy.supabase.co",
+  anonKey: ""
+};
